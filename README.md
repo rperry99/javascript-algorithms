@@ -2,9 +2,11 @@
 
 Practicing some common JavaScript Algorithms
 
-Additionally, I am using this as an opprotinty on how to write tests for applications like this.
+Additionally, I am using this as an opportunity on how to write tests for applications like this.
 
-## Bubble Sort
+## Sorting
+
+### Bubble Sort
 
 [Link to file on GitHub](https://github.com/rperry99/javascript-algorithms/blob/main/Bubble_Sort.js)
 
