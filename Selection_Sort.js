@@ -1,31 +1,33 @@
-// Bubble Sort Function
-function bubbleSort(inputArray) {
-  let hasSwapped; // Boolean to check to see if a swap happened during the inner loop.
+// Selection Sort Function
+function selectionSort(inputArray) {
+  // Selection Sort repeatedly selects the smallest (or largest) element from the unsorted portion of the list and swaps it with the first element of the unsorted part.
 
-  // Check if the inputArray has more than one element. If so, begin sorting, if not, skip it.
+  // Only start swapping on arrays with 2 or more elements.
   if (inputArray.length > 1) {
-    // Loop through the array (keeps track of how many times the array needs to be gone through).
+    let firstUnsortedIndex; // Variable to hold the first index of the unsorted part of the array.
+    let isSwapped;
+
     for (let i = 0; i < inputArray.length; i++) {
-      // Resets hasSwapped.
-      hasSwapped = false;
-      // For every loop of the array, loop again, comparing the current number to the following number.
-      for (let j = 0; j < inputArray.length - i - 1; j++) {
-        // If the current number is larger than the next number, then the numbers swap.
-        if (inputArray[j] > inputArray[j + 1]) {
-          const tempNum = inputArray[j];
-          inputArray[j] = inputArray[j + 1];
-          inputArray[j + 1] = tempNum;
-          hasSwapped = true;
+      firstUnsortedIndex = i; // Sets the index we are looking to change to the earliest unsorted index slot.
+      isSwapped = false; // Sets up for if the function goes through an iteration without swapping, it can stop the swap. (Redusing number of swaps)
+
+      // Loop through the remaining array.
+      for (let j = i + 1; j < inputArray.length; j++) {
+        // If the current number being looked at (j) is smaller than the number in the current lowest index, swap them.
+        if (inputArray[j] < inputArray[firstUnsortedIndex]) {
+          firstUnsortedIndex = j;
+          isSwapped = true;
         }
       }
 
-      // If it goes through all options for J, and a swap didn't happen, it means the sort is done.
-      // Handles edge case of when the array is sorted before the i loop has a chance to finish.
-      if (!hasSwapped) {
-        break; // Exit early
+      if (isSwapped) {
+        let tempNum = inputArray[i];
+        inputArray[i] = inputArray[firstUnsortedIndex];
+        inputArray[firstUnsortedIndex] = tempNum;
       }
     }
   }
+  // Send the output to the tests
   return inputArray;
 }
 
@@ -81,7 +83,7 @@ const TESTCASES = {
 // Function to run the tests
 function runTests(testCases) {
   for (const [key, { input, expected }] of Object.entries(testCases)) {
-    const result = bubbleSort([...input]); // Passing a copy to keep the original in tact.
+    const result = selectionSort([...input]); // Passing a copy to keep the original in tact.
     const isPassed = JSON.stringify(result) === JSON.stringify(expected);
 
     console.log(`Test ${key}: ${isPassed ? 'PASSED' : 'FAILED'}`);
